@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>💕 Be My Valentine? 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffe9f3;
+    --accent:#ff3b6b;
+    --muted:#8b6b84;
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    background: linear-gradient(135deg, #ffeaf4 0%, #ffe0ee 25%, #ffd4e8 50%, #ffe7f1 75%, #fff0f8 100%);
+    color:#222;
+    overflow-x: hidden;
+  }
+
+  .wrap{
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+    box-sizing:border-box;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* Floating hearts animation */
+  .heart{
+    position:absolute;
+    font-size:24px;
+    animation: floatUp 8s infinite ease-in;
+    opacity:0;
+    pointer-events:none;
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:0.8; }
+    90%{ opacity:0.6; }
+    100%{ transform:translateY(-100vh) rotate(360deg); opacity:0; }
+  }
+
+  /* Sparkles */
+  .sparkle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 8px #ffd4e8;
+    animation: sparkle 2s infinite;
+    pointer-events:none;
+  }
+  @keyframes sparkle{
+    0%, 100%{ opacity:0; transform:scale(0.5); }
+    50%{ opacity:1; transform:scale(1.2); }
+  }
+
+  .card{
+    width:720px;
+    max-width:100%;
+    background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,245,250,0.98));
+    border-radius:30px;
+    box-shadow:0 20px 60px rgba(255,105,180,0.25), 0 0 0 3px rgba(255,182,193,0.3);
+    padding:48px 40px;
+    text-align:center;
+    position:relative;
+    border:2px solid rgba(255,255,255,0.8);
+    animation: cardGlow 3s infinite alternate;
+  }
+  @keyframes cardGlow{
+    0%{ box-shadow:0 20px 60px rgba(255,105,180,0.25), 0 0 0 3px rgba(255,182,193,0.3); }
+    100%{ box-shadow:0 20px 70px rgba(255,105,180,0.35), 0 0 0 3px rgba(255,150,180,0.5); }
+  }
+
+  /* Decorative hearts on card corners */
+  .card::before,
+  .card::after{
+    content:'💖';
+    position:absolute;
+    font-size:32px;
+    animation: pulse 2s infinite;
+  }
+  .card::before{
+    top:-10px;
+    left:-10px;
+  }
+  .card::after{
+    bottom:-10px;
+    right:-10px;
+    animation-delay:1s;
+  }
+  @keyframes pulse{
+    0%, 100%{ transform:scale(1); }
+    50%{ transform:scale(1.15); }
+  }
+
+  h1{
+    margin:0 0 18px 0;
+    font-size:48px;
+    line-height:1.05;
+    letter-spacing:0.2px;
+    color:#ff1a75;
+    font-weight:700;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 4px rgba(255,105,180,0.3), 0 0 20px rgba(255,182,193,0.4);
+    animation: titleFloat 3s infinite ease-in-out;
+  }
+  @keyframes titleFloat{
+    0%, 100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-5px); }
+  }
+
+  .subtitle{
+    margin:0 0 28px 0;
+    color:#c94b8c;
+    font-size:18px;
+    font-weight:600;
+    text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+  }
+
+  .controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:24px;
+    min-height:74px;
+    position:relative;
+  }
+
+  /* Yes button: beautiful and bold */
+  .btn-yes{
+    appearance:none;
+    -webkit-appearance:none;
+    border:0;
+    padding:18px 42px;
+    border-radius:50px;
+    background:linear-gradient(135deg, #ff6b98 0%, #ff3b6b 60%);
+    color:#fff;
+    font-weight:900;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow: 0 8px 25px rgba(255,55,105,0.4), inset 0 -2px 0 rgba(0,0,0,0.1), 0 0 20px rgba(255,105,180,0.3);
+    transition: all .2s ease;
+    transform-origin:center;
+    position:relative;
+    animation: yesButtonGlow 2s infinite;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  @keyframes yesButtonGlow{
+    0%, 100%{ box-shadow: 0 8px 25px rgba(255,55,105,0.4), inset 0 -2px 0 rgba(0,0,0,0.1), 0 0 20px rgba(255,105,180,0.3); }
+    50%{ box-shadow: 0 10px 30px rgba(255,55,105,0.6), inset 0 -2px 0 rgba(0,0,0,0.1), 0 0 35px rgba(255,105,180,0.6); transform:scale(1.03); }
+  }
+  .btn-yes:hover{
+    transform:scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 35px rgba(255,55,105,0.6), 0 0 40px rgba(255,105,180,0.8);
+  }
+  .btn-yes:active{ transform: translateY(1px) scale(1.02); }
+
+  /* No button: will be positioned absolutely and jump around on hover */
+  .btn-no{
+    position:absolute;
+    left:60%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    appearance:none;
+    border:2px solid #ffb3d9;
+    background:rgba(255,240,245,0.6);
+    padding:12px 20px;
+    border-radius:20px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition: all .1s ease;
+    user-select:none;
+    color:#ff69b4;
+    box-shadow: 0 4px 10px rgba(255,105,180,0.2);
+  }
+  .btn-no:hover{
+    background:rgba(255,230,245,0.8);
+    border-color:#ff8fcc;
+  }
+
+  /* Small note at bottom */
+  .from{
+    margin-top:30px;
+    color:#c94b8c;
+    font-size:16px;
+    font-weight:600;
+    font-style:italic;
+  }
+  .from::before{
+    content:'💌 ';
+  }
+  .from::after{
+    content:' 💌';
+  }
+
+  /* Modal overlay */
+  .overlay{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.45);
+    z-index:60;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .18s ease;
+  }
+  .overlay.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .modal{
+    background:linear-gradient(180deg, #fff, #fff0f8);
+    padding:36px 40px;
+    border-radius:25px;
+    box-shadow: 0 30px 80px rgba(255,105,180,0.4);
+    text-align:center;
+    max-width:90%;
+    width:440px;
+    border:3px solid rgba(255,182,193,0.5);
+    animation: modalBounce 0.5s ease-out;
+  }
+  @keyframes modalBounce{
+    0%{ transform:scale(0.7); opacity:0; }
+    50%{ transform:scale(1.05); }
+    100%{ transform:scale(1); opacity:1; }
+  }
+  .modal h2{
+    margin:8px 0 6px 0;
+    font-size:32px;
+    color:#ff1a75;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 4px rgba(255,105,180,0.3);
+  }
+  .modal p{
+    font-size:18px;
+    color:#d946a7;
+    font-weight:600;
+  }
+  .modal .gif-wrap{
+    width:96px;
+    height:96px;
+    margin:0 auto;
+  }
+  .close{
+    margin-top:16px;
+    display:inline-block;
+    background:linear-gradient(135deg, #ff8fc7, #ff6ba6);
+    border:0;
+    padding:12px 28px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:700;
+    color:white;
+    font-size:16px;
+    box-shadow: 0 6px 18px rgba(255,105,180,0.3);
+    transition: all 0.2s ease;
+  }
+  .close:hover{
+    transform:scale(1.05);
+    box-shadow: 0 8px 24px rgba(255,105,180,0.5);
+  }
+
+  /* small responsive tweaks */
+  @media (max-width:480px){
+    h1{ font-size:28px; }
+    .btn-yes{ padding:12px 22px; font-size:16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="card">
+      <h1>Dore-Mari<br><span style="font-size:.65em; font-weight:600; color:#ff69b4; font-family:'Quicksand',sans-serif; text-shadow:1px 1px 3px rgba(255,182,193,0.5);">Will you be my Valentine? 💕</span></h1>
+      <p class="subtitle">✨ there's only one correct answer ✨</p>
+
+      <div class="controls" id="controls">
+        <button class="btn-yes" id="yesBtn" aria-label="Yes">💖 Yes! 💖</button>
+        <button class="btn-no" id="noBtn" aria-label="No">No 😢</button>
+      </div>
+
+      <div class="from">From - Bekkie</div>
+    </div>
+  </div>
+
+  <!-- Overlay modal -->
+  <div class="overlay" id="overlay" role="dialog" aria-hidden="true" aria-modal="true">
+    <div class="modal" role="document">
+      <div class="gif-wrap" id="gifWrap" aria-hidden="true" style="font-size:96px; animation: heartBounce 0.8s infinite ease-in-out;">
+        💖
+      </div>
+      <style>
+        @keyframes heartBounce {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.2); }
+        }
+      </style>
+
+      <h2>Yaaaay! 🎉✨</h2>
+      <p style="margin:0;">I'm so happy! Best day ever! 💕💕💕</p>
+      <div style="text-align:center;">
+        <button class="close" id="closeBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const controls = document.getElementById('controls');
+  const card = document.getElementById('card');
+  const overlay = document.getElementById('overlay');
+  const closeBtn = document.getElementById('closeBtn');
+  const wrap = document.querySelector('.wrap');
+
+  // Create floating hearts
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    const hearts = ['💕', '💖', '💗', '💝', '💘', '❤️', '💓'];
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+    heart.style.animationDelay = Math.random() * 2 + 's';
+    wrap.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
+
+  // Create sparkles
+  function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.animationDelay = Math.random() * 2 + 's';
+    wrap.appendChild(sparkle);
+  }
+
+  // Initialize hearts and sparkles
+  for (let i = 0; i < 15; i++) {
+    setTimeout(createHeart, i * 800);
+  }
+  setInterval(createHeart, 3000);
+
+  for (let i = 0; i < 20; i++) {
+    createSparkle();
+  }
+
+  // Place the "No" button initially near the right of controls area:
+  function placeInitial() {
+    // center controls box rect
+    const ctrl = controls.getBoundingClientRect();
+    noBtn.style.left = (ctrl.width * 0.72) + 'px';
+    noBtn.style.top = (ctrl.height / 2) + 'px';
+    noBtn.style.transform = 'translate(-50%,-50%)';
+  }
+  window.addEventListener('load', placeInitial);
+  window.addEventListener('resize', placeInitial);
+
+  // Move button to a random spot inside the card but keep it visible
+  function jumpNoButton() {
+    const outerRect = card.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    // compute available area inside the card padding bounds
+    const padding = 16;
+    const minX = padding;
+    const minY = padding;
+    const maxX = Math.max(outerRect.width - btnRect.width - padding, minX);
+    const maxY = Math.max(outerRect.height - btnRect.height - padding - 40, minY); // leave space for title
+
+    // pick random
+    const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+    const y = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+    // Position relative to .card
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+    noBtn.style.transform = 'translate(0,0)';
+  }
+
+  // Use mouseenter so it moves as soon as cursor enters it
+  noBtn.addEventListener('mouseenter', function(e){
+    // small jitter to make it feel playful before moving somewhere else
+    noBtn.style.transform = 'scale(1.03)';
+    // slight delay to make it chase cursor but not be impossible
+    setTimeout(() => {
+      jumpNoButton();
+      noBtn.style.transform = 'scale(1)';
+    }, 60);
+  });
+
+  // On touch devices: move when touched
+  noBtn.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    jumpNoButton();
+  }, {passive:false});
+
+  // If user somehow clicks it (fast), move it randomly
+  noBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    jumpNoButton();
+  });
+
+  // Yes-click: show modal overlay
+  yesBtn.addEventListener('click', function(){
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+    // focus close button for accessibility
+    closeBtn.focus();
+  });
+
+  // Close handlers
+  function hideOverlay(){
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+    yesBtn.focus();
+  }
+  closeBtn.addEventListener('click', hideOverlay);
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) hideOverlay();
+  });
+
+  // keyboard: ESC to close
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('show')) hideOverlay();
+  });
+
+  // Make sure the no button stays inside if layout changes
+  const obs = new ResizeObserver(() => {
+    // clamp current position into the card bounds if needed
+    const outerRect = card.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+    let left = parseFloat(noBtn.style.left || 0);
+    let top = parseFloat(noBtn.style.top || 0);
+
+    // If unit is px relative to card, okay. If left is percent or not set, reposition.
+    if (isNaN(left) || isNaN(top)) placeInitial();
+    else {
+      const maxX = Math.max(outerRect.width - btnRect.width - 16, 16);
+      const maxY = Math.max(outerRect.height - btnRect.height - 16 - 40, 16);
+      if (left > maxX) left = maxX;
+      if (top > maxY) top = maxY;
+      if (left < 16) left = 16;
+      if (top < 16) top = 16;
+      noBtn.style.left = left + 'px';
+      noBtn.style.top = top + 'px';
+    }
+  });
+  obs.observe(card);
+
+})();
+</script>
+</body>
+</html>
